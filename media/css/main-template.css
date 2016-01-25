@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
+
+body {
+    padding-top: 50px;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #333;
+    background-color: #fff;
+}
+a.mlink:link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+a.mlink:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+a.mlink:visited {
+    color: white;
+}
+a.mlink:active {
+    color: white;
+}
+
+table#server-list {
+    
+}
+table#server-list td {
+    text-align: center;
+}
+table#server-list th {
+    text-align: center;
+}
