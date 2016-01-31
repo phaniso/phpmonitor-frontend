@@ -23,9 +23,12 @@
             }
             echo validation_errors();
             
-            echo form_open('', array(
-                'id' => 'form',
-                'class' => 'form-install'));
+            echo form_open('', 
+                [
+                    'id' => 'form',
+                    'class' => 'form-install'
+                ]
+            );
             ?>
                 <h2 class="form-login-heading">Installation</h2>
                 <h3>Database:</h3>
@@ -45,12 +48,6 @@
                     <div class="form-group">
                         <label class="sr-only" for="key">Database Name</label>
 						<input type="text" class="form-control" name="db_name" id="db_name" value="<?php echo  set_value('db_name', ''); ?>" placeholder="Database Name"/>
-                    </div>
-
-                    <h3>Site</h3>
-                    <div class="form-group">
-                        <label class="sr-only" for="key">Site url</label>
-						<input type="text" class="form-control" name="site_url" id="site_url" value="<?php echo set_value('site_url', ''); ?>" placeholder="http://localhost/"/>
                     </div>
 
                     <h3>Admin:</h3>
