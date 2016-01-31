@@ -54,13 +54,12 @@ $route['default_controller'] = "main";
 $route['index'] = "main";
 
 $route['install'] = "install";
-$route['install/step/(:num)'] = "install/step/$1";
 
 $route['auth'] = "auth";
 
 $route['admin'] = "admin";
-$route['admin/server/add'] = "admin/addServer";
-$route['admin/server/delete'] = "admin/deleteServer";
+$route['admin/server/add'] = "admin_controllers/server/add";
+$route['admin/server/delete'] = "admin_controllers/server/delete";
 
 $route['admin/notification'] = "admin_controllers/notification";
 $route['admin/notification/add'] = "admin_controllers/notification/add";

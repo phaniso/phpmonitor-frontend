@@ -48,7 +48,6 @@ class Install extends CI_Controller
                     $this->input->post('db_user'),
                     $this->input->post('db_password'),
                     $this->input->post('db_name'),
-                    $this->input->post('site_url')
                 );
                 $this->load->model('installation_model', 'install');
                 $this->install->database(
@@ -80,15 +79,13 @@ class Install extends CI_Controller
         $this->form_validation->set_rules('db_password', 'Database password', 'trim|required');
         $this->form_validation->set_rules('db_name', 'Database name', 'trim|required');
         
-        $this->form_validation->set_rules('site_url', 'Site url', 'trim|required');
-
         $this->form_validation->set_rules('username', 'Admin Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Admin Password', 'trim|required|matches[password_confirmation]');
         $this->form_validation->set_rules('password_confirmation', 'Password Confirmation', 'trim|required');
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
     }
     
-    private function alterConfigs($dbHost, $dbUser, $dbPassword, $dbName, $siteUrl)
+    private function alterConfigs($dbHost, $dbUser, $dbPassword, $dbName)
     {
         if (!file_exists(self::CONFIG_PATH)) {
             throw new Exception('Can\'t find config file');
@@ -115,7 +112,6 @@ class Install extends CI_Controller
         $this->configReplace($configDatabase, 'database', $dbName, ConfigEnum::DATABASE);
 
         $this->configReplace($configData, 'encryption_key', $this->encryption->create_key(16), ConfigEnum::CONFIG);
-        $this->configReplace($configData, 'base_url', $siteUrl, ConfigEnum::CONFIG);
         $this->configReplace($configData, 'installed', true, ConfigEnum::CONFIG);
 
         $autoloadConfigReplacement = "['libraries'] = array('session', 'database');";
