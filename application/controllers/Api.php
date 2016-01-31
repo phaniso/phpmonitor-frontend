@@ -39,20 +39,20 @@ class Api extends CI_Controller
         if (!$this->server->isValid($id)) {
             return $this->jsonError('Server is not valid');
         }
-        if (count(explode(':', $showableItems[$req]['dbcolumns'])) < 2 || !$showableItems[$req]['percentages']) {
-            $returnPercentage = false;
-        }
+
         $serverHistory = $this->serverHistory->getServerHistory($id);
         if (count($serverHistory) < 1) {
             return $this->jsonError('Server doesn\'t have any history');
         }
-
+        
+        if (count(explode(':', $showableItems[$req]['dbcolumns'])) < 2 || !$showableItems[$req]['percentages']) {
+            $returnPercentage = false;
+        }
         foreach ($serverHistory as $serverData) {
             $returnPercentage ? $data[] = calculatePercentages(array($serverData), $showableItems, true) : $data[][$req] = $serverData[$req];
             $data[count($data) - 1]['Date'] = date("Y/m/d H:i:s", $serverData['time']);
         }
         
-        //CSV for Dygraph
         $this->printCSV($req, $data);
     }
 

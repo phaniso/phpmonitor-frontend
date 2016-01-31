@@ -50,11 +50,12 @@ class Admin extends MY_Controller
         $password = hash('sha256', $this->input->post('password') . $username);
 
         if ($this->form_validation->run() == false) {
-            return print json_encode(array('error' => validation_errors(' ', " ")));
+            $ret = array('error' => validation_errors(' ', " "));
         } else {
             $this->user->setPassword($username, $password);
-            return print json_encode(array('success' => "Password changed"));
+            $ret = array('success' => "Password changed");
         }
+        print json_encode($ret);
     }
 
 }

@@ -47,7 +47,7 @@ class Install extends CI_Controller
                     $this->input->post('db_host'),
                     $this->input->post('db_user'),
                     $this->input->post('db_password'),
-                    $this->input->post('db_name'),
+                    $this->input->post('db_name')
                 );
                 $this->load->model('installation_model', 'install');
                 $this->install->database(

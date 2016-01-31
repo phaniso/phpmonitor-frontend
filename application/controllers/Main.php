@@ -53,14 +53,6 @@ class Main extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function pageNotFound()
-    {
-        $this->load->view('errors/html/error_404', array(
-            'heading' =>'404',
-            'message' => 'Requested Page not Found'
-            ));
-    }
-
     private function serversTable(array $servers, $services, $percents)
     {
         $table = '';

@@ -9,7 +9,7 @@
 
         <title>Installation</title>
 
-		<link href="<?php echo base_url(); ?>media/css/layout.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>media/bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link href="<?php echo base_url(); ?>media/css/install.css" rel="stylesheet">
     </head>
 
