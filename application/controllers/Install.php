@@ -19,7 +19,7 @@ class ConfigEnum
 class Install extends CI_Controller
 {
 
-    const CONFIG_PATH = APPPATH.'config/config.php';
+    const CONFIG_PATH   = APPPATH.'config/config.php';
     const DATABASE_PATH = APPPATH.'config/database.php';
     const AUTOLOAD_PATH = APPPATH.'config/autoload.php';
 
@@ -29,6 +29,7 @@ class Install extends CI_Controller
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->library('encryption');
+        $this->load->model('installation_model', 'install');
 
         if (config_item('installed')) {
             redirect('index');
@@ -37,28 +38,28 @@ class Install extends CI_Controller
 
     public function index()
     {
-        $errors = array();
+        $errors = [];
         $this->prepareForm();
         if ($this->form_validation->run() === false) {
             $this->load->view('installation/form');
         } else {
             try {
+                $this->install->database(
+                    $_POST['username'],
+                    $_POST['password'],
+                    [
+                        $this->input->post('db_host'),
+                        $this->input->post('db_user'),
+                        $this->input->post('db_password'),
+                        $this->input->post('db_name')
+                    ]
+                );
+
                 $this->alterConfigs(
                     $this->input->post('db_host'),
                     $this->input->post('db_user'),
                     $this->input->post('db_password'),
                     $this->input->post('db_name')
-                );
-                $this->load->model('installation_model', 'install');
-                $this->install->database(
-                    $_POST['username'],
-                    $_POST['password'],
-                    [
-                    $this->input->post('db_host'),
-                    $this->input->post('db_user'),
-                    $this->input->post('db_password'),
-                    $this->input->post('db_name')
-                    ]
                 );
             } catch (Exception $e) {
                 $errors[] = $e->getMessage().PHP_EOL;
