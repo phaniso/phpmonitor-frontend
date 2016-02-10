@@ -37,7 +37,7 @@
     </div>
 	<div><button type="submit" class="btn btn-info btn-sm"><?php echo $submitName; ?></button></div>
 	<?php echo form_close(); ?>
-    </div> <!-- /form -->
+    </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>

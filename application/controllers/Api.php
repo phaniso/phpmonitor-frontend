@@ -40,14 +40,13 @@ class Api extends CI_Controller
             return $this->jsonError('Server is not valid');
         }
 
+        $returnPercentage = $this->shouldReturnPercentage($showableItems, $req);
+
         $serverHistory = $this->serverHistory->getServerHistory($id);
         if (count($serverHistory) < 1) {
             return $this->jsonError('Server doesn\'t have any history');
         }
-        
-        if (count(explode(':', $showableItems[$req]['dbcolumns'])) < 2 || !$showableItems[$req]['percentages']) {
-            $returnPercentage = false;
-        }
+
         foreach ($serverHistory as $serverData) {
             $returnPercentage ? $data[] = calculatePercentages(array($serverData), $showableItems, true) : $data[][$req] = $serverData[$req];
             $data[count($data) - 1]['Date'] = date("Y/m/d H:i:s", $serverData['time']);
@@ -57,7 +56,7 @@ class Api extends CI_Controller
     }
 
     /**
-     * print services available for drawing graphs
+     * Print services available for drawing graphs
      *
      */
     public function graphServices()
@@ -78,6 +77,16 @@ class Api extends CI_Controller
         print json_encode($services);
     }
     
+    private function shouldReturnPercentage($showableItems, $req)
+    {
+        if (count(explode(':', $showableItems[$req]['dbcolumns'])) < 2
+            || !$showableItems[$req]['percentages']
+        ) {
+            return false;
+        }
+        return true;
+    }
+
     /**
     * Print encoded error in json
     *

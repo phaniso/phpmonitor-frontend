@@ -1,7 +1,10 @@
 
-    <div class="container">
-    <h1><?php echo $server['name']; ?></h1>
-    <div class="well">
+    <div class="container" style="padding: 10px;">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <?php echo $server['name']; ?>
+    </div>
+    <div class="panel-body">
 		<div id="server_id" value="<?php echo $server['id']; ?>"></div>
         <div class="panel panel-default">
             <table class="table">
@@ -28,8 +31,15 @@
             </table>
         </div>
     </div>
-        <div id="graphs" class="row">       
-    
+    </div>
+
+        <div class="panel-default">
+            <div class="panel-heading">Graphs</div>
+            <div class="panel-body">
+                <div id="graphs" class="row"></div>
+
+            </div>
         </div>
-    </div> <!-- /container --> 
+    </div>
+
 <script src="<?php echo config_item('base_url'); ?>media/js/server-graphs.js"></script>

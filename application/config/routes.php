@@ -51,7 +51,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 
 $route['default_controller'] = "main";
-$route['index'] = "main";
+$route['index'] = "main/index";
+$route['view/(:any)'] = "main/index/$1";
 
 $route['install'] = "install";
 

@@ -1,6 +1,5 @@
 	<div id="response" class="alert alert-danger" style="display : none;"></div>
 
-   <!-- Profile -->
    <div class="col-xs-6 col-lg-4">
     <div id="profile">
     	<h2>Change Password</h2>
@@ -18,4 +17,3 @@
 
    </div>
    </div>
-	<!-- /profile -->
