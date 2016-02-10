@@ -33,12 +33,11 @@ class Main extends CI_Controller
 
     private function view($viewName)
     {
+        $data = [];
         $this->load->model('service_model');
         $this->load->helper('utils_helper');
         $this->load->model('server_model', 'server');
         $this->load->model('serverHistory_model', 'serverHistory');
-
-        $data = [];
 
         $data['services'] = $this->service_model->getAll();
         $data['serversConfig'] = $this->server->getConfig();
@@ -49,11 +48,13 @@ class Main extends CI_Controller
         );
         $data['updateTime'] = timeSince($this->serverHistory->getLastUpdate());
 
-        $functionName = 'view_'.$viewName;
-        call_user_func([$this, $functionName], $data);
+        $methodName = 'view'.$viewName;
+        if(method_exists($this, $methodName)) {
+            call_user_func([$this, $methodName], $data);
+        }
     }
 
-    private function view_table($data)
+    private function viewTable($data)
     {
         $this->load->view('header');
         $table = $this->serversTable(
@@ -72,10 +73,10 @@ class Main extends CI_Controller
         $this->load->view('footer');
     }
 
-    private function view_panel($data)
+    private function viewPanel($data)
     {
         $this->load->view('header');
-        $panels = $this->serversPanel(
+        $panels = $this->serversPanels(
             'panel',
             $data['serversData'],
             $data['services'],
@@ -90,7 +91,7 @@ class Main extends CI_Controller
         $this->load->view('footer');
     }
 
-    private function serversPanel($type, array $servers, $services, $percents)
+    private function serversPanels($type, array $servers, $services, $percents)
     {
         $panels = '';
         $separator = ['opener' => '<div class="col-md-4">', 'closer' => '</div>'];
@@ -134,7 +135,6 @@ class Main extends CI_Controller
                     ],
                     true
                 );
-                $table .= '</tr>';
             } else {
                 $table .= $this->load->view(
                     'serverList/table/trOffline',
