@@ -22,7 +22,7 @@ class Service_model extends CI_Model
     public function getAll()
     {
         $services = [];
-        $query = $this->db->get_where($this->tableName);
+        $query = $this->db->get($this->tableName);
         foreach($query->result() as $row) {
             $services[$row->name] =
             [

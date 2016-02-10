@@ -67,7 +67,8 @@ class Main extends CI_Controller
             'serverList/table/main',
             [
                 'tableContent' => $table,
-                'updateTime' => $data['updateTime']
+                'updateTime' => $data['updateTime'],
+                'services'  => $data['services']
             ]
         );
         $this->load->view('footer');
