@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Trigger</h1>
-    <div id="form" class="col-sm-3">
+    <div id="form" class="col-sm-4 col-md-3">
 	<?php
     echo validation_errors();
     echo form_open();
@@ -39,7 +39,7 @@
 			<button type="submit" class="btn btn-info btn-sm"><?php echo $submitName; ?></button>
         </div>
 		<?php echo form_close(); ?>
-    </div> <!-- /div id=form -->
+    </div>
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">

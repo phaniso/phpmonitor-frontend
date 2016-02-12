@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Trigger</h1>
-    <div id="form" class="col-sm-3">
+    <div id="form" class="col-sm-4 col-md-3">
 	<?php
     echo validation_errors();
     echo form_open();

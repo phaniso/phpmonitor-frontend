@@ -5,12 +5,14 @@ var apiUrl = baseUrl+"/get/"+serverId+"/";
 function addGraphs(services)
 {
     for (i in services) {
-        document.getElementById('graphs').innerHTML += '<div class="col-md-6">'+
+        document.getElementById('graphs').innerHTML +='<div class="col-md-6">'+
         '<div class="text-center">'+
-        '<p class="label label-info">'+services[i]['sub']+'</p></div>'+
-        '<div id="graph_'+services[i]['name']+'"></div></div>';
+        '<p class="label label-info">'+services[i]['sub']+'</p>'+
+        '</div>'+
+        '<div id="graph_'+services[i]['name']+'" style="width:100%"></div>'+
+        '</div>';
     }
-            
+
     for (i in services) {
         loadDygraph(services[i]['name'], services[i]['percentages']);
     }
