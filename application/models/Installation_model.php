@@ -113,6 +113,7 @@ class Installation_model extends CI_Model
             `mysql_slow_query` int(11) DEFAULT NULL,
             `mysql_query_avg` int(11) DEFAULT NULL,
             `memcache_hits` int(11) DEFAULT NULL,
+            `memcache_miss` int(11) DEFAULT NULL,
             `memcache_get` int(11) DEFAULT NULL,
             `memcache_cmd` int(11) DEFAULT NULL,
             `memcache_bytes` int(11) DEFAULT NULL,
