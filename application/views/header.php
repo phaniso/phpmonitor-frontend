@@ -7,7 +7,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="">
-		<title>Multi Server Monitor <?php if (isset($title)) {
+		<title>Multi Server Monitor
+        <?php if (isset($title)) {
             echo '- '.$title; 
         } ?>
         </title>

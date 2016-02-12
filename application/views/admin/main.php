@@ -12,14 +12,14 @@
         </thead>
         <tbody>
           <?php foreach ($servers_config as $server) : ?>
-    			<tr id="server_<?php echo $server['id']; ?>">
-                    <td>
-              <a href="<?php echo base_url("server/{$server['id']}"); ?>"><?php echo $server['name']; ?></a>
+    		<tr id="server_<?php echo $server['id']; ?>">
+            <td>
+                <a href="<?php echo base_url("server/{$server['id']}"); ?>"><?php echo $server['name']; ?></a>
             </td>
-                    <td>
+            <td>
                 <?php echo $server['url_path']; ?>
             </td>
-                    <td>
+            <td>
                 <?php echo $server['ping_hostname']; ?>
             </td>
             <td>
@@ -31,16 +31,16 @@
           </tr>
             <?php endforeach; ?>
           <tr>
-                    <td>
+            <td>
               <input type="text" class="form-control" id="name" placeholder="Name">
             </td>
-                    <td>
+            <td>
               <input type="text" class="form-control" id="url_path" placeholder="Api url path">
             </td>
-                    <td>
+            <td>
               <input class="form-control" type="text" id="ping_hostname" placeholder="Ping Hostname">
             </td>
-                    <td>
+            <td>
               <a id="add" class="btn btn-success">Add</a>
             </td>    
           </tr>

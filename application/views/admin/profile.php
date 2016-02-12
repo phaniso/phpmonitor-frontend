@@ -1,6 +1,6 @@
-	<div id="response" class="alert alert-danger" style="display : none;"></div>
+    <div id="response" class="alert alert-danger" style="display : none;"></div>
 
-   <div class="col-xs-6 col-lg-4">
+    <div class="col-xs-6 col-lg-4">
     <div id="profile">
     	<h2>Change Password</h2>
     	<div class="col-xs-12 col-lg-8">
@@ -15,5 +15,5 @@
     	<a id="updateProfile" class="btn btn-success" ahref="">Update</a>
     </div>
 
-   </div>
-   </div>
+    </div>
+    </div>
