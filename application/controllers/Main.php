@@ -100,7 +100,7 @@ class Main extends CI_Controller
         {
             $panelBody = $this->buildListBody($type, $separator, $server, $services, $percents);
             if($server['status'] === 'online') {
-            $panels .= $this->load->view('serverList/panel/panelOnline',
+            $panels .= $this->load->view('serverList/panel/online',
                 [
                     'server' => $server,
                     'panelBody' => $panelBody
@@ -108,7 +108,7 @@ class Main extends CI_Controller
                 true
             );
             } else {
-                $panels .= $this->load->view('serverList/panel/panelOffline',
+                $panels .= $this->load->view('serverList/panel/offline',
                     [
                         'server' => $server
                     ],
@@ -128,7 +128,7 @@ class Main extends CI_Controller
             $tableBody = $this->buildListBody($type, $separator, $server, $services, $percents);
             if($server['status'] == 'online') {
                 $table .= $this->load->view(
-                    'serverList/table/trOnline',
+                    'serverList/table/online',
                     [
                         'server' => $server,
                         'services' => $services,
@@ -138,7 +138,7 @@ class Main extends CI_Controller
                 );
             } else {
                 $table .= $this->load->view(
-                    'serverList/table/trOffline',
+                    'serverList/table/offline',
                     [
                         'server' => $server,
                         'services' => $services
