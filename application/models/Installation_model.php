@@ -140,8 +140,8 @@ class Installation_model extends CI_Model
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS `services` (
         `id` int(11) NOT NULL,
+          `service_key` varchar(32) NOT NULL,
           `name` varchar(32) NOT NULL,
-          `sub` varchar(32) NOT NULL,
           `percentages` tinyint(1) NOT NULL,
           `dbcolumns` varchar(64) NOT NULL,
           `resize` tinyint(1) NOT NULL,
@@ -151,7 +151,7 @@ class Installation_model extends CI_Model
     ");
 
     $pdo->exec("
-        INSERT INTO `services` (`id`, `name`, `sub`, `percentages`, `dbcolumns`, `resize`, `show_graph`, `show_numbers`) VALUES
+        INSERT INTO `services` (`id`, `service_key`, `name`, `percentages`, `dbcolumns`, `resize`, `show_graph`, `show_numbers`) VALUES
         (1, 'load', 'Cpu Load', 1, 'sys_load:cpu_cores', 0, 1, 1),
         (2, 'memory', 'Used Memory', 1, 'memory_usage:memory_total', 1, 1, 1),
         (3, 'disk', 'Used Space', 1, 'disk_usage:disk_total', 1, 1, 1),

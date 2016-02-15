@@ -7,14 +7,14 @@ function addGraphs(services)
     for (i in services) {
         document.getElementById('graphs').innerHTML +='<div class="col-md-6">'+
         '<div class="text-center">'+
-        '<p class="label label-info">'+services[i]['sub']+'</p>'+
+        '<p class="label label-info">'+services[i]['name']+'</p>'+
         '</div>'+
-        '<div id="graph_'+services[i]['name']+'" style="width:100%"></div>'+
+        '<div id="graph_'+services[i]['key']+'" style="width:100%"></div>'+
         '</div>';
     }
 
     for (i in services) {
-        loadDygraph(services[i]['name'], services[i]['percentages']);
+        loadDygraph(services[i]['key'], services[i]['percentages']);
     }
 }
         

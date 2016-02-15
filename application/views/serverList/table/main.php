@@ -8,7 +8,7 @@
                 <tr>
                 <th style="text-align: center;"><span class="label label-info">Name</span></th>
                 <?php foreach($services as $label): ?>
-                <th><span class="label label-info"><?php echo $label['sub']?></span></th>
+                <th><span class="label label-info"><?php echo $label['name']?></span></th>
                 <?php endforeach; ?>
                 </tr>
             </thead>

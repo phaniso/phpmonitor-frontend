@@ -24,11 +24,11 @@ class Service_model extends CI_Model
         $services = [];
         $query = $this->db->get($this->tableName);
         foreach($query->result() as $row) {
-            $services[$row->name] =
+            $services[$row->service_key] =
             [
                 'id' => $row->id,
                 'name' => $row->name,
-                'sub' => $row->sub,
+                'service_key' => $row->service_key,
                 'percentages' => $row->percentages,
                 'dbcolumns' => $row->dbcolumns,
                 'resize' => $row->resize,

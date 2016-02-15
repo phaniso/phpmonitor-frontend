@@ -26,7 +26,7 @@ class Api extends CI_Controller
      */
     public function serverHistory($id = null, $req = null)
     {
-        $data = array();
+        $data = [];
         $showableItems = $this->service_model->getAll();
         $this->load->model('server_model', 'server');
         $this->load->model('serverHistory_model', 'serverHistory');
@@ -39,7 +39,8 @@ class Api extends CI_Controller
         if (!$this->server->isValid($id)) {
             return $this->jsonError('Server is not valid');
         }
-
+        $dbColumns = explode(':', $showableItems[$req]['dbcolumns']);
+        $dbColumn = reset($dbColumns);
         $returnPercentage = $this->shouldReturnPercentage($showableItems, $req);
 
         $serverHistory = $this->serverHistory->getServerHistory($id);
@@ -48,7 +49,7 @@ class Api extends CI_Controller
         }
 
         foreach ($serverHistory as $serverData) {
-            $returnPercentage ? $data[] = calculatePercentages(array($serverData), $showableItems, true) : $data[][$req] = $serverData[$req];
+            $returnPercentage ? $data[] = calculatePercentages(array($serverData), $showableItems, true) : $data[][$req] = $serverData[$dbColumn];
             $data[count($data) - 1]['Date'] = date("Y/m/d H:i:s", $serverData['time']);
         }
         
@@ -67,9 +68,8 @@ class Api extends CI_Controller
         foreach ($items as $key => $value) {
             if ($value['show_graph']) {
                 $services[] = array(
-                    'name' => $key,
-                    'serviceName' => $value['name'],
-                    'sub' => $value['sub'],
+                    'key' => $key,
+                    'name' => $value['name'],
                     'percentages' => $value['percentages']
                     );
             }

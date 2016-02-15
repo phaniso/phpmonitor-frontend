@@ -179,7 +179,7 @@ class Main extends CI_Controller
             $listContent .= $this->load->view(
                 'serverList/'.$type.'/body',
                 [
-                    'name' => $service['sub'],
+                    'name' => $service['name'],
                     'body' => $body
                 ],
                 true
