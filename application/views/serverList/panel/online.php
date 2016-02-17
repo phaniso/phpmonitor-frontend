@@ -2,14 +2,10 @@
     <div class="panel panel-default text-center">
         <div class="panel-heading">
             <span class="label label-success">
-            
                 <a class="mlink" href="<?php echo base_url('server/'.$server['server_id']); ?>">
                     <?php echo $server['hostname']; ?>
                 </a>
             </span>
-        </div>
-        <div class="panel-body">
-            
         </div>
         <ul class="list-group">
         <?php echo $panelBody; ?>
