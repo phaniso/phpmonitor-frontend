@@ -1,5 +1,5 @@
 <div class="col-md-4 col-sm-6">
-    <div class="panel panel-danger">
+    <div class="panel panel-danger text-center">
         <div class="panel-heading">
         <span class="label label-danger">
             <span class="glyphicon glyphicon-fire"></span>

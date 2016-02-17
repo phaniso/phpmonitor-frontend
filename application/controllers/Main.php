@@ -95,7 +95,7 @@ class Main extends CI_Controller
     private function serversPanels($type, array $servers, $services, $percents)
     {
         $panels = '';
-        $separator = ['opener' => '<div class="col-md-4">', 'closer' => '</div>'];
+        $separator = ['opener' => '', 'closer' => ''];
         foreach($servers as $server)
         {
             $panelBody = $this->buildListBody($type, $separator, $server, $services, $percents);
@@ -131,7 +131,6 @@ class Main extends CI_Controller
                     'serverList/table/online',
                     [
                         'server' => $server,
-                        'services' => $services,
                         'body' => $tableBody
                     ],
                     true

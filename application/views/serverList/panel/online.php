@@ -1,5 +1,5 @@
 <div class="col-md-4 col-sm-6">
-    <div class="panel panel-default">
+    <div class="panel panel-default text-center">
         <div class="panel-heading">
             <span class="label label-success">
             
@@ -9,7 +9,10 @@
             </span>
         </div>
         <div class="panel-body">
-            <?php echo $panelBody; ?>
+            
         </div>
+        <ul class="list-group">
+        <?php echo $panelBody; ?>
+        </ul>
     </div>
 </div>
