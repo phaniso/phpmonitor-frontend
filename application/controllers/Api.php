@@ -21,8 +21,8 @@ class Api extends CI_Controller
     /**
      * Return server history data for Dygraph
      *
-     * @param id - server id
-     * @param req - service name
+     * @param int $id server id
+     * @param string $req service key
      */
     public function serverHistory($id = null, $req = null)
     {
@@ -39,6 +39,7 @@ class Api extends CI_Controller
         if (!$this->server->isValid($id)) {
             return $this->jsonError('Server is not valid');
         }
+
         $dbColumns = explode(':', $showableItems[$req]['dbcolumns']);
         $dbColumn = reset($dbColumns);
         $returnPercentage = $this->shouldReturnPercentage($showableItems, $req);
@@ -53,7 +54,7 @@ class Api extends CI_Controller
             $data[count($data) - 1]['Date'] = date("Y/m/d H:i:s", $serverData['time']);
         }
         
-        $this->printCSV($req, $data);
+        $this->printCSV($req, $showableItems[$req]['name'], $data);
     }
 
     /**
@@ -68,7 +69,7 @@ class Api extends CI_Controller
         foreach ($items as $key => $value) {
             if ($value['show_graph']) {
                 $services[] = array(
-                    'key' => $key,
+                    'key' => md5($value['name']),
                     'name' => $value['name'],
                     'percentages' => $value['percentages']
                     );
@@ -100,11 +101,11 @@ class Api extends CI_Controller
     * Print data in CSV format
     *
     */
-    private function printCSV($req, $data)
+    private function printCSV($key, $serviceName, $data)
     {
-        printf("%s, %s \r\n", 'Date', $req);
+        printf("%s, %s \r\n", 'Date', $serviceName);
         foreach ($data as $row) {
-            printf("%s,%s\r\n", $row['Date'], $row[$req]);
+            printf("%s,%s\r\n", $row['Date'], $row[$key]);
         }
     }
 }

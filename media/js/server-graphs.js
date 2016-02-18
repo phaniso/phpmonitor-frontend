@@ -9,20 +9,20 @@ function addGraphs(services)
         '<div class="text-center">'+
         '<p class="label label-info">'+services[i]['name']+'</p>'+
         '</div>'+
-        '<div id="graph_'+services[i]['key']+'" style="width:100%"></div>'+
+        '<div id="graph_'+services[i]['name']+'" style="width:100%"></div>'+
         '</div>';
     }
 
     for (i in services) {
-        loadDygraph(services[i]['key'], services[i]['percentages']);
+        loadDygraph(services[i]['name'], services[i]['key'], services[i]['percentages']);
     }
 }
         
-function loadDygraph(name, returnPercentage)
+function loadDygraph(name, key, returnPercentage)
 {
     new Dygraph(
         document.getElementById("graph_"+name),
-        apiUrl+name,
+        apiUrl+key,
         {
             axes: {
                 y: {
