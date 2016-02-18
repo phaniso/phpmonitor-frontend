@@ -22,12 +22,16 @@ class Notification extends MY_Controller
 
     public function index()
     {
-        $data = ['itemName' => 'Notification', 'itemPath' => 'notification'];
+        $data =
+        [
+            'itemName' => 'Notification',
+            'itemPath' => 'notification'
+        ];
         $data['items'] = $this->notification->get()->result_array();
-        $headerData = array('js' => array('admin/notification.js'));
+        $headerData = ['js' => ['admin/notification.js']];
         $content = $this->load->view('admin/itemListing', $data, true);
         $this->load->view('header', $headerData);
-        $this->load->view('admin/header', array('content' => $content));
+        $this->load->view('admin/header', ['content' => $content]);
         $this->load->view('footer');
     }
 
@@ -38,13 +42,14 @@ class Notification extends MY_Controller
         if ($this->form_validation->run() === false) {
             $this->load->view('header');
             $content = $this->load->view('admin/notification/form', $data, true);
-            $this->load->view('admin/header', array('content' => $content));
+            $this->load->view('admin/header', ['content' => $content]);
             $this->load->view('footer');
         } else {
-            $this->notification->add(array(
-            'name' => $this->input->post('name'),
-            'message' => $this->input->post('message')
-            ));
+            $this->notification->add(
+            [
+                'name' => $this->input->post('name'),
+                'messageTemplate' => $this->input->post('message')
+            ]);
             redirect('admin/notification');
         }
     }
@@ -61,14 +66,15 @@ class Notification extends MY_Controller
         if ($this->form_validation->run() === false) {
             $this->load->view('header');
             $content = $this->load->view('admin/notification/form', $data, true);
-            $this->load->view('admin/header', array('content' => $content));
+            $this->load->view('admin/header', ['content' => $content]);
             $this->load->view('footer');
         } else {
-            $this->notification->edit(array(
-            'id' => $notificationId,
-            'name' => $this->input->post('name'),
-            'message' => $this->input->post('message')
-            ));
+            $this->notification->edit(
+            [
+                'id' => $notificationId,
+                'name' => $this->input->post('name'),
+                'messageTemplate' => $this->input->post('message')
+            ]);
             redirect('admin/notification');
         }
     }

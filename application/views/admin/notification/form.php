@@ -14,7 +14,7 @@
     <div class="col-lg-12">
         <div class="form-group">
         <label for="message">Message</label>
-		<textarea class="form-control" name="message" rows="4" placeholder="Message text"><?php echo isset($message) ? $message : set_value('message', ''); ?></textarea>
+		<textarea class="form-control" name="message" rows="4" placeholder="Message text"><?php echo isset($messageTemplate) ? $messageTemplate : set_value('messageTemplate', ''); ?></textarea>
         </div>
     </div>
     <div class="col-lg-6">

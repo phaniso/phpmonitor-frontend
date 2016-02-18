@@ -36,13 +36,13 @@ class Installation_model extends CI_Model
       CREATE TABLE IF NOT EXISTS `notifications` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `name` varchar(60) NOT NULL,
-        `message` text NOT NULL,
+        `messageTemplate` text NOT NULL,
         PRIMARY KEY (`id`),
         KEY `id` (`id`)
       ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
       ");
         $pdo->exec("
-      INSERT INTO `notifications` (`id`, `name`, `message`) VALUES
+      INSERT INTO `notifications` (`id`, `name`, `messageTemplate`) VALUES
       (1, 'Memory', 'Server memory reached {triggerValue}%'),
       (2, 'Server Status', 'Server: {hostname} is offline');
       ");
