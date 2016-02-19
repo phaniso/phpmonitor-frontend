@@ -19,23 +19,18 @@ class Service_model extends CI_Model
         parent::__construct();
     }
 
+    public function getByName($name)
+    {
+        $this->db->where('name', $name);
+        $query = $this->db->get($this->tableName);
+        $service = $query->row_array();
+        return $service;
+    }
+
     public function getAll()
     {
-        $services = [];
         $query = $this->db->get($this->tableName);
-        foreach($query->result() as $row) {
-            $key = md5($row->name);
-            $services[$key] =
-            [
-                'id' => $row->id,
-                'name' => $row->name,
-                'percentages' => $row->percentages,
-                'dbcolumns' => $row->dbcolumns,
-                'resize' => $row->resize,
-                'show_graph' => $row->show_graph,
-                'show_numbers' => $row->show_numbers
-            ];
-        }
+        $services = $query->result_array();
         return $services;
     }
 }

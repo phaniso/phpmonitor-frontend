@@ -14,15 +14,15 @@ function addGraphs(services)
     }
 
     for (i in services) {
-        loadDygraph(services[i]['name'], services[i]['key'], services[i]['percentages']);
+        loadDygraph(services[i]['name'], services[i]['percentages']);
     }
 }
         
-function loadDygraph(name, key, returnPercentage)
+function loadDygraph(name, returnPercentage)
 {
     new Dygraph(
         document.getElementById("graph_"+name),
-        apiUrl+key,
+        apiUrl+name,
         {
             axes: {
                 y: {

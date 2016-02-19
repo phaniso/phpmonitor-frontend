@@ -27,22 +27,24 @@ class Api extends CI_Controller
     public function serverHistory($id = null, $req = null)
     {
         $data = [];
+        $req = urldecode($req);
         $showableItems = $this->service_model->getAll();
         $this->load->model('server_model', 'server');
         $this->load->model('serverHistory_model', 'serverHistory');
         $this->load->helper('utils_helper');
         $returnPercentage = true;
+        $service = $this->service_model->getByName($req);
 
-        if (!isset($showableItems[$req])) {
+        if (!isset($service)) {
             return $this->jsonError('Service not found');
         }
         if (!$this->server->isValid($id)) {
             return $this->jsonError('Server is not valid');
         }
 
-        $dbColumns = explode(':', $showableItems[$req]['dbcolumns']);
+        $dbColumns = explode(':', $service['dbcolumns']);
         $dbColumn = reset($dbColumns);
-        $returnPercentage = $this->shouldReturnPercentage($showableItems, $req);
+        $returnPercentage = $this->shouldReturnPercentage($service, $req);
 
         $serverHistory = $this->serverHistory->getServerHistory($id);
         if (count($serverHistory) < 1) {
@@ -50,11 +52,10 @@ class Api extends CI_Controller
         }
 
         foreach ($serverHistory as $serverData) {
-            $returnPercentage ? $data[] = calculatePercentages(array($serverData), $showableItems, true) : $data[][$req] = $serverData[$dbColumn];
+            $returnPercentage ? $data[] = calculatePercentages(array($serverData), ['service' => $service], true) : $data[]['service'] = $serverData[$dbColumn];
             $data[count($data) - 1]['Date'] = date("Y/m/d H:i:s", $serverData['time']);
         }
-        
-        $this->printCSV($req, $showableItems[$req]['name'], $data);
+        $this->printCSV($req, $service['name'], $data);
     }
 
     /**
@@ -65,11 +66,10 @@ class Api extends CI_Controller
     {
         header('Content-Type: application/json');
         $items = $this->service_model->getAll();
-        $services= array();
+        $services = [];
         foreach ($items as $key => $value) {
             if ($value['show_graph']) {
                 $services[] = array(
-                    'key' => md5($value['name']),
                     'name' => $value['name'],
                     'percentages' => $value['percentages']
                     );
@@ -78,10 +78,10 @@ class Api extends CI_Controller
         print json_encode($services);
     }
     
-    private function shouldReturnPercentage($showableItems, $req)
+    private function shouldReturnPercentage($service, $req)
     {
-        if (count(explode(':', $showableItems[$req]['dbcolumns'])) < 2
-            || !$showableItems[$req]['percentages']
+        if (count(explode(':', $service['dbcolumns'])) < 2
+            || !$service['percentages']
         ) {
             return false;
         }
@@ -105,7 +105,7 @@ class Api extends CI_Controller
     {
         printf("%s, %s \r\n", 'Date', $serviceName);
         foreach ($data as $row) {
-            printf("%s,%s\r\n", $row['Date'], $row[$key]);
+            printf("%s,%s\r\n", $row['Date'], $row['service']);
         }
     }
 }
