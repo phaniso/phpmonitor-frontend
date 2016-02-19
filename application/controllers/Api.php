@@ -64,7 +64,6 @@ class Api extends CI_Controller
     public function graphServices()
     {
         header('Content-Type: application/json');
-        $items = $this->service_model->getAll();
         $services = $this->service_model->getGraphActive();
         print json_encode($services);
     }

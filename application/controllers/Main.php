@@ -35,8 +35,8 @@ class Main extends CI_Controller
     private function view($viewName)
     {
         $data = [];
-        $this->load->model('service_model');
         $this->load->helper('utils_helper');
+        $this->load->model('service_model');
         $this->load->model('server_model', 'server');
         $this->load->model('serverHistory_model', 'serverHistory');
 
@@ -54,7 +54,6 @@ class Main extends CI_Controller
     }
     private function viewRender($data, $viewName)
     {
-        $viewTemplate = '';
         $this->load->view('header');
         $viewTemplate = $this->serversList
         (
