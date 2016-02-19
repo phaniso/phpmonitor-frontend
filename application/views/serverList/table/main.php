@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php echo $tableContent; ?>
+            <?php echo $content; ?>
         </tbody>        
         </table>
     </div>

@@ -2,7 +2,7 @@
     <h1>Server List</h1>
         <a class="glyphicon glyphicon-align-justify" href="<?php echo base_url('view/table');?>"></a>
     <div class="row">
-        <?php echo $panels; ?>
+        <?php echo $content; ?>
     </div>
 </div>
 

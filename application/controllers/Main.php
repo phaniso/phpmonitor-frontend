@@ -25,10 +25,11 @@ class Main extends CI_Controller
     {
         $defaultView = 'table';
         $views = ['table', 'panel'];
-        if(in_array($view, $views))
+        if(in_array($view, $views)) {
             $this->view($view);
-        else
-            $this->view($defaultView);
+            return;
+        }
+        $this->view($defaultView);
     }
 
     private function view($viewName)
@@ -39,34 +40,34 @@ class Main extends CI_Controller
         $this->load->model('server_model', 'server');
         $this->load->model('serverHistory_model', 'serverHistory');
 
-        $data['services'] = $this->service_model->getAll();
-        $data['serversConfig'] = $this->server->getConfig();
-        $data['serversData'] = $this->serverHistory->getServersHistory();
-        $data['percents'] = calculatePercentages(
+        $data['services']       = $this->service_model->getAll();
+        $data['serversConfig']  = $this->server->getConfig();
+        $data['serversData']    = $this->serverHistory->getServersHistory();
+        $data['percents']       = calculatePercentages
+        (
             $data['serversData'],
             $data['services']
         );
         $data['updateTime'] = timeSince($this->serverHistory->getLastUpdate());
 
-        $methodName = 'view'.$viewName;
-        if(method_exists($this, $methodName)) {
-            call_user_func([$this, $methodName], $data);
-        }
+        $this->viewRender($data, $viewName);
     }
-
-    private function viewTable($data)
+    private function viewRender($data, $viewName)
     {
+        $viewTemplate = '';
         $this->load->view('header');
-        $table = $this->serversTable(
-            'table',
+        $viewTemplate = $this->serversList
+        (
+            $viewName,
             $data['serversData'],
             $data['services'],
             $data['percents']
         );
+
         $this->load->view(
-            'serverList/table/main',
+            'serverList/'.$viewName.'/main',
             [
-                'tableContent' => $table,
+                'content' => $viewTemplate,
                 'updateTime' => $data['updateTime'],
                 'services'  => $data['services']
             ]
@@ -74,70 +75,24 @@ class Main extends CI_Controller
         $this->load->view('footer');
     }
 
-    private function viewPanel($data)
+    private function serversList($viewName, array $servers, $services, $percents)
     {
-        $this->load->view('header');
-        $panels = $this->serversPanels(
-            'panel',
-            $data['serversData'],
-            $data['services'],
-            $data['percents']
-        );
-        $this->load->view('serverList/panel/main', 
-            [
-                'panels' => $panels,
-                'updateTime' => $data['updateTime']
-            ]
-        );
-        $this->load->view('footer');
-    }
-
-    private function serversPanels($type, array $servers, $services, $percents)
-    {
-        $panels = '';
-        $separator = ['opener' => '', 'closer' => ''];
+        $list = '';
+        $separator['panel'] = ['opener' => '', 'closer' => ''];
+        $separator['table'] = ['opener' => '<td>', 'closer' => '</td>'];
         foreach($servers as $server)
         {
-            $panelBody = $this->buildListBody($type, $separator, $server, $services, $percents);
+            $listBody = $this->buildServerListBody($viewName, $separator[$viewName], $server, $services, $percents);
             if($server['status'] === 'online') {
-            $panels .= $this->load->view('serverList/panel/online',
+            $list .= $this->load->view('serverList/'.$viewName.'/online',
                 [
                     'server' => $server,
-                    'panelBody' => $panelBody
+                    'body' => $listBody
                 ],
                 true
             );
             } else {
-                $panels .= $this->load->view('serverList/panel/offline',
-                    [
-                        'server' => $server
-                    ],
-                    true
-                );
-            }
-        }
-        return $panels;
-    }
-
-    private function serversTable($type, array $servers, $services, $percents)
-    {
-        $table = '';
-        $separator = ['opener' => '<td>', 'closer' => '</td>'];
-
-        foreach($servers as $server) {
-            $tableBody = $this->buildListBody($type, $separator, $server, $services, $percents);
-            if($server['status'] == 'online') {
-                $table .= $this->load->view(
-                    'serverList/table/online',
-                    [
-                        'server' => $server,
-                        'body' => $tableBody
-                    ],
-                    true
-                );
-            } else {
-                $table .= $this->load->view(
-                    'serverList/table/offline',
+                $list .= $this->load->view('serverList/'.$viewName.'/offline',
                     [
                         'server' => $server,
                         'services' => $services
@@ -146,13 +101,12 @@ class Main extends CI_Controller
                 );
             }
         }
-        return $table;
+        return $list;
     }
 
-    private function buildListBody($type, $separator, $server, $services, $percents)
+    private function buildServerListBody($type, $separator, $server, $services, $percents)
     {
         $listContent = '';
-        $body = '';
         foreach($services as $serviceName => $service) {
             list($column1, $column2) = array_pad(explode(":", $service['dbcolumns']), 2, 1);
             if (is_numeric($column2)) {
@@ -164,7 +118,6 @@ class Main extends CI_Controller
                     (convertUnit($server[$column1]) . "/" . convertUnit($server[$column2]))
                     : $server[$column1]) 
             : $percents[$server['server_id']][$serviceName] . '%';
-            if($type == 'panel') $body .= $separator['closer'];
             if($service['percentages']) {
                $body .= $this->load->view(
                     'serverList/'.$type.'/percentage',
@@ -173,7 +126,7 @@ class Main extends CI_Controller
                     ],
                     true
                 );
-            if($type == 'table') $body .= $separator['closer'];
+            $body .= $separator['closer'];
             }
             $listContent .= $this->load->view(
                 'serverList/'.$type.'/body',

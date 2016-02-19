@@ -27,6 +27,14 @@ class Service_model extends CI_Model
         return $service;
     }
 
+    public function getGraphActive()
+    {
+        $this->db->where('show_graph', 1);
+        $query = $this->db->get($this->tableName);
+        $services = $query->result_array();
+        return $services;
+    }
+
     public function getAll()
     {
         $query = $this->db->get($this->tableName);

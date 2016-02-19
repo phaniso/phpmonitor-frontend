@@ -28,7 +28,6 @@ class Api extends CI_Controller
     {
         $data = [];
         $req = urldecode($req);
-        $showableItems = $this->service_model->getAll();
         $this->load->model('server_model', 'server');
         $this->load->model('serverHistory_model', 'serverHistory');
         $this->load->helper('utils_helper');
@@ -66,15 +65,7 @@ class Api extends CI_Controller
     {
         header('Content-Type: application/json');
         $items = $this->service_model->getAll();
-        $services = [];
-        foreach ($items as $key => $value) {
-            if ($value['show_graph']) {
-                $services[] = array(
-                    'name' => $value['name'],
-                    'percentages' => $value['percentages']
-                    );
-            }
-        }
+        $services = $this->service_model->getGraphActive();
         print json_encode($services);
     }
     

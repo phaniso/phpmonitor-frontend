@@ -8,7 +8,7 @@
             </span>
         </div>
         <ul class="list-group">
-        <?php echo $panelBody; ?>
+        <?php echo $body; ?>
         </ul>
     </div>
 </div>
