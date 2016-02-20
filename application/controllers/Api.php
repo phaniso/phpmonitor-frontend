@@ -34,10 +34,10 @@ class Api extends CI_Controller
         $returnPercentage = true;
         $service = $this->service_model->getByName($req);
 
-        if (!isset($service)) {
+        if (! isset($service)) {
             return $this->jsonError('Service not found');
         }
-        if (!$this->server->isValid($id)) {
+        if (! $this->server->isValid($id)) {
             return $this->jsonError('Server is not valid');
         }
 

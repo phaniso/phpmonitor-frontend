@@ -11,6 +11,7 @@ if (!defined('BASEPATH')) {
  */
 class Error extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -18,10 +19,11 @@ class Error extends CI_Controller
 
     public function pageNotFound()
     {
-        $this->load->view('errors/html/error_404', array(
+        $this->load->view('errors/html/error_404',
+        [
             'heading' =>'404',
             'message' => 'Requested Page not Found'
-            ));
+        ]);
     }
 }
 

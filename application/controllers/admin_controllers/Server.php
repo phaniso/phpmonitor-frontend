@@ -11,6 +11,7 @@ if (!defined('BASEPATH')) {
  */
 class Server extends MY_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -34,14 +35,14 @@ class Server extends MY_Controller
         }
 
         if ($this->form_validation->run() == false) {
-            return print json_encode(array('error' => validation_errors(' ', " ")));
+            return print json_encode(['error' => validation_errors(' ', " ")]);
         } else {
             $this->server->add(
                 $this->input->post('name'),
                 $urlPath,
                 $this->input->post('ping_hostname')
             );
-            return print json_encode(array('success' => 'Success.'));
+            return print json_encode(['success' => 'Success.']);
         }
 
     }
@@ -49,7 +50,7 @@ class Server extends MY_Controller
     public function delete()
     {
         $serverId = (int)$this->input->post('server_id');
-        if (!$serverId) {
+        if (! $serverId) {
             return;
         }
         $this->serverHistory->deleteByServerId($serverId);
@@ -59,22 +60,26 @@ class Server extends MY_Controller
 
     public function urlValidate($url)
     {
-        if (urlValidate($url)) {
-            return true;
-        } else {
-            $this->form_validation->set_message('urlValidate', 'Your url path have to contain \'http://\' (eg. http://localhost/api/)');
+        if (! urlValidate($url)) {
+            $this->form_validation->set_message(
+                'urlValidate',
+                'Your url path have to contain \'http://\' (eg. http://localhost/api/)'
+            );
             return false;
         }
+        return true;
     }
 
     public function hostnameValidate($hostname)
     {
-        if (hostnameValidate($hostname)) {
-            return true;
-        } else {
-            $this->form_validation->set_message('hostnameValidate', '%s is not ip nor domain');
+        if (! hostnameValidate($hostname)) {
+            $this->form_validation->set_message(
+                'hostnameValidate',
+                '%s is not ip nor domain'
+            );
             return false;
         }
+        return true;
     }
 }
 

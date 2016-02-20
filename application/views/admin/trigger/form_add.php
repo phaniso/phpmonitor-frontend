@@ -12,17 +12,27 @@
     <div class="form-group">
         <label for="type">Type</label>
 		<?php
-            echo form_dropdown('type', $typeOptions, set_value('type', ''), 'class="form-control selectpicker"');
+            echo form_dropdown(
+                'type',
+                $typeOptions,
+                set_value('type', ''),
+                'class="form-control selectpicker"'
+            );
         ?>
     </div>
     <div class="form-group">
         <label for="name">Type Name</label>
-		<input type="text" class="form-control" name="service_name" placeholder="Type Name" value="<?php echo set_value('service_name', ''); ?>">
+		<input type="text" class="form-control" name="serviceName" placeholder="Type Name" value="<?php echo set_value('serviceName', ''); ?>">
     </div>
     <div class="form-group">
         <label for="notification_id">Notification Id</label>
 		<?php
-            echo form_dropdown('notification_id', $notificationOptions, set_value('notification_id', ''), 'class="form-control selectpicker"');
+            echo form_dropdown(
+                'notification_id',
+                $notificationOptions,
+                set_value('notification_id', ''),
+                'class="form-control selectpicker"'
+            );
         ?>
     </div>
     <div class="form-group">
@@ -32,7 +42,12 @@
     <div class="form-group">
         <label for="operator">Operator</label>
 		<?php
-            echo form_dropdown('operator', $operatorOptions, set_value('operator', ''), 'class="form-control selectpicker"');
+            echo form_dropdown(
+                'operator',
+                $operatorOptions,
+                set_value('operator', ''),
+                'class="form-control selectpicker"'
+            );
         ?>
     </div>
 	<div><button type="submit" class="btn btn-info btn-sm"><?php echo $submitName; ?></button></div>

@@ -11,6 +11,7 @@ if (!defined('BASEPATH')) {
  */
 class Server_model extends CI_Model
 {
+
     private $tableName = 'servers';
     var $name = '';
     var $url_path = '';

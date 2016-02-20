@@ -11,6 +11,7 @@ if (!defined('BASEPATH')) {
  */
 class Admin extends MY_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -23,20 +24,31 @@ class Admin extends MY_Controller
     public function index()
     {
         $data['servers_config'] = $this->server->getConfig()->result_array();
-        $headerData = array('js' => array('admin/admin.js'));
+        $headerData =
+        [
+            'js' => 
+            [
+                'admin/admin.js'
+            ]
+        ];
         $this->load->view('header', $headerData);
         $content = $this->load->view('admin/main', $data, true);
-        $this->load->view('admin/header', array('content' => $content));
+        $this->load->view('admin/header', ['content' => $content]);
         $this->load->view('footer');
-
     }
 
     public function profile()
     {
-        $headerData = array('js' => array('admin/admin.js'));
+        $headerData = 
+        [
+            'js' => 
+            [
+                'admin/admin.js'
+            ]
+        ];
         $this->load->view('header', $headerData);
         $content = $this->load->view('admin/profile', '', true);
-        $this->load->view('admin/header', array('content' => $content));
+        $this->load->view('admin/header', ['content' => $content]);
         $this->load->view('footer');
     }
 
@@ -44,20 +56,27 @@ class Admin extends MY_Controller
     {
         header('Content-Type: application/json');
 
-        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]|matches[password_confirmation]');
-        $this->form_validation->set_rules('password_confirmation', 'Password Confirmation', 'required');
+        $this->form_validation->set_rules(
+            'password',
+            'Password',
+            'required|trim|min_length[4]|matches[password_confirmation]'
+        );
+        $this->form_validation->set_rules(
+            'password_confirmation',
+            'Password Confirmation',
+            'required'
+        );
         $username = $this->session->userdata('username');
         $password = hash('sha256', $this->input->post('password') . $username);
 
         if ($this->form_validation->run() == false) {
-            $ret = array('error' => validation_errors(' ', " "));
+            $ret = ['error' => validation_errors(' ', " ")];
         } else {
             $this->user->setPassword($username, $password);
-            $ret = array('success' => "Password changed");
+            $ret = ['success' => "Password changed"];
         }
         print json_encode($ret);
     }
-
 }
 
 /* End of file admin.php */

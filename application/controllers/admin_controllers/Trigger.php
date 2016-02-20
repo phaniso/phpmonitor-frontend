@@ -24,10 +24,16 @@ class Trigger extends MY_Controller
     {
         $data = ['itemName' => 'Trigger', 'itemPath' => 'trigger'];
         $data['items'] = $this->trigger->get()->result_array();
-        $headerData = array('js' => array('admin/trigger.js'));
+        $headerData = 
+        [
+            'js' => 
+            [
+                'admin/trigger.js'
+            ]
+        ];
         $content = $this->load->view('admin/itemListing', $data, true);
         $this->load->view('header', $headerData);
-        $this->load->view('admin/header', array('content' => $content));
+        $this->load->view('admin/header', ['content' => $content]);
         $this->load->view('footer');
     }
     
@@ -38,17 +44,18 @@ class Trigger extends MY_Controller
         if ($this->form_validation->run() === false) {
             $content = $this->load->view('admin/trigger/form_add', $data, true);
             $this->load->view('header');
-            $this->load->view('admin/header', array('content' => $content));
+            $this->load->view('admin/header', ['content' => $content]);
             $this->load->view('footer');
         } else {
-            $triggerData = array(
-            'notification_id' => $this->input->post('notification_id'),
-            'value' => $this->input->post('value'),
-            'operator' => $this->input->post('operator'),
-            'name' => $this->input->post('name'),
-            'service_name' => $this->input->post('service_name'),
-            'type' => $this->input->post('type')
-            );
+            $triggerData =
+            [
+                'notification_id' => $this->input->post('notification_id'),
+                'value' => $this->input->post('value'),
+                'operator' => $this->input->post('operator'),
+                'name' => $this->input->post('name'),
+                'serviceName' => $this->input->post('serviceName'),
+                'type' => $this->input->post('type')
+            ];
             $this->trigger->add($triggerData);
             redirect('admin/trigger');
         }
@@ -66,17 +73,18 @@ class Trigger extends MY_Controller
         if ($this->form_validation->run() === false) {
             $content = $this->load->view('admin/trigger/form_edit', $data, true);
             $this->load->view('header');
-            $this->load->view('admin/header', array('content' => $content));
+            $this->load->view('admin/header', ['content' => $content]);
             $this->load->view('footer');
         } else {
-            $triggerData = array(
-            'notification_id' => $this->input->post('notification_id'),
-            'value' => $this->input->post('value'),
-            'operator' => $this->input->post('operator'),
-            'name' => $this->input->post('name'),
-            'service_name' => $this->input->post('service_name'),
-            'type' => $this->input->post('type')
-            );
+            $triggerData =
+            [
+                'notification_id' => $this->input->post('notification_id'),
+                'value' => $this->input->post('value'),
+                'operator' => $this->input->post('operator'),
+                'name' => $this->input->post('name'),
+                'serviceName' => $this->input->post('serviceName'),
+                'type' => $this->input->post('type')
+            ];
             $this->trigger->edit($triggerId, $triggerData);
             redirect('admin/trigger');
         }
@@ -87,16 +95,16 @@ class Trigger extends MY_Controller
         header('Content-Type: application/json');
         $this->form_validation->set_rules('id', 'Id', 'required|numeric');
         if ($this->form_validation->run() === false) {
-            return print json_encode(array('error' => 'bad id'));
+            return print json_encode(['error' => 'bad id']);
         } else {
             $this->trigger->delete($_POST['id']);
-            return print json_encode(array('success' => 'true'));
+            return print json_encode(['success' => 'true']);
         }
     }
     
     public function prepareForm()
     {
-        $data = array();
+        $data = [];
         $this->load->model('admin/notification_model', 'notification');
         $notifications = $this->notification->get()->result_array();
 
@@ -111,7 +119,7 @@ class Trigger extends MY_Controller
         }
 
         $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('service_name', 'Service Name', 'required');
+        $this->form_validation->set_rules('serviceName', 'Service Name', 'required');
         $this->form_validation->set_rules('notification_id', 'Notification id', 'required|numeric|callback_notificationValidate');
         $this->form_validation->set_rules('value', 'Value', 'required');
         $this->form_validation->set_rules('operator', 'Operator', 'required|callback_operatorValidate');
@@ -139,11 +147,11 @@ class Trigger extends MY_Controller
     public function typeValidate($type)
     {
         $triggerTypes = $this->trigger->getTriggerTypes();
-        if (!is_array($triggerTypes)) {
+        if (! is_array($triggerTypes)) {
             $this->form_validation->set_message('typeValidate', 'Trigger array broken, see application/config');
             return false;
         }
-        if (!in_array($type, $triggerTypes)) {
+        if (! in_array($type, $triggerTypes)) {
             $this->form_validation->set_message('typeValidate', 'Type is invalid');
             return false;
         }
@@ -157,11 +165,11 @@ class Trigger extends MY_Controller
     {
         $triggerOperators = $this->trigger->getTriggerOperators();
         
-        if (!is_array($triggerOperators)) {
+        if (! is_array($triggerOperators)) {
             $this->form_validation->set_message('operatorValidate', 'Operator array broken, see application/config');
             return false;
         }
-        if (!in_array($operator, $triggerOperators)) {
+        if (! in_array($operator, $triggerOperators)) {
             $this->form_validation->set_message('operatorValidate', 'Operator has invalid value');
             return false;
         }

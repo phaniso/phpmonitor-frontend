@@ -11,6 +11,7 @@ if (!defined('BASEPATH')) {
  */
 class Auth extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -49,19 +50,20 @@ class Auth extends CI_Controller
     public function registerSession($username)
     {
         $user = $this->user->getUserByUsername($username);
-        $this->session->set_userdata(array(
+        $this->session->set_userdata(
+        [
             'userId'        => $user['id'],
             'username'      => $user['username'],
             'userAccess'    => $user['access'],
             'loggedIn'      => true
-            ));
+        ]);
             return true;
     }
     
     public function canLogin($username, $password)
     {
         $user = $this->user->getUserByUsername($username);
-        if (!$user) {
+        if (! $user) {
             return false;
         }
         return ($user['username'] === $username
@@ -70,7 +72,7 @@ class Auth extends CI_Controller
     
     public function hasAccess($level)
     {
-        if (!$this->loggedIn()) {
+        if (! $this->loggedIn()) {
             return false;
         }
         

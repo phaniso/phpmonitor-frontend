@@ -11,6 +11,7 @@ if (!defined('BASEPATH')) {
  */
 class ServerHistory_model extends CI_Model
 {
+
     private $tableName = 'servers_history';
     var $name = '';
     var $url_path = '';
@@ -82,13 +83,12 @@ class ServerHistory_model extends CI_Model
     {
         $query = $this->db->query(
             "SELECT time FROM servers_history WHERE status='online' AND server_id=? ORDER BY time DESC",
-            array($id)
+            [$id]
         );
         if ($query->num_rows() > 0) {
             return $query->row()->time;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     public function deleteByServerId($serverId)

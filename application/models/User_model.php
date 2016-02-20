@@ -11,9 +11,8 @@ if (!defined('BASEPATH')) {
  */
 class User_model extends CI_Model
 {
+
     private $tableName = 'users';
-    //var $id = -1;
-    //var $password = '';
     
     public function __construct()
     {
@@ -32,7 +31,7 @@ class User_model extends CI_Model
     public function setPassword($username, $password)
     {
         $user = $this->getUserByUsername($username);
-        if (!$user) {
+        if (! $user) {
             return false;
         }
         $this->db->where('id', $user['id']);

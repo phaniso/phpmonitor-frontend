@@ -11,12 +11,20 @@
         </div>
         <div class="form-group">
             <label for="name">Service Name</label>
-			<input type="text" class="form-control" name="service_name" placeholder="Service Name" value="<?php echo set_value('service_name', $trigger['service_name']); ?>">
+			<input type="text" class="form-control" name="serviceName" placeholder="Service Name" value="<?php echo set_value('serviceName', $trigger['serviceName']); ?>">
         </div>
         <div class="form-group">
             <label for="notification_id">Notification Id</label>
 			<?php
-                echo form_dropdown('notification_id', $notificationOptions, set_value('notification_id', $trigger['notification_id']), 'class="form-control selectpicker"');
+                echo form_dropdown(
+                    'notification_id',
+                    $notificationOptions,
+                    set_value(
+                        'notification_id',
+                        $trigger['notification_id']
+                    ),
+                    'class="form-control selectpicker"'
+                );
             ?>
         </div>
         <div class="form-group">
@@ -26,13 +34,29 @@
         <div class="form-group">
             <label for="operator">Operator</label>
 			<?php
-                echo form_dropdown('operator', $operatorOptions, set_value('operator', $trigger['operator']), 'class="form-control selectpicker"');
+                echo form_dropdown(
+                    'operator',
+                    $operatorOptions,
+                    set_value(
+                        'operator',
+                        $trigger['operator']
+                    ),
+                    'class="form-control selectpicker"'
+                );
             ?>
         </div>
         <div class="form-group">
             <label for="type">Type</label>
 			<?php
-                echo form_dropdown('type', $typeOptions, set_value('type', $trigger['type']), 'class="form-control selectpicker"');
+                echo form_dropdown(
+                    'type',
+                    $typeOptions,
+                    set_value(
+                        'type',
+                        $trigger['type']
+                    ),
+                    'class="form-control selectpicker"'
+                );
             ?>
         </div>
         <div>

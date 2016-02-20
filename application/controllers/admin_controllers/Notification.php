@@ -56,7 +56,7 @@ class Notification extends MY_Controller
 
     public function edit($notificationId)
     {
-        if (!$this->notification->isValid($notificationId)) {
+        if (! $this->notification->isValid($notificationId)) {
             redirect('admin/notification');
         }
         $data = $this->notification->get($notificationId)->row_array();
@@ -92,7 +92,7 @@ class Notification extends MY_Controller
         }
 
         $this->notification->delete($this->input->post('id'));
-            return print json_encode(array('success' => 'true'));
+        return print json_encode(array('success' => 'true'));
     }
     
 

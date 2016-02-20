@@ -18,7 +18,9 @@
         </div>
     </div>
     <div class="col-lg-6">
-		<button class="btn btn-default" type="submit"><?php echo $submitName; ?></button>
+		<button class="btn btn-default" type="submit">
+            <?php echo $submitName; ?>
+        </button>
     </div>
 	<?php echo form_close(); ?>
     </div>
