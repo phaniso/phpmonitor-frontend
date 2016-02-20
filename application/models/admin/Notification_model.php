@@ -22,13 +22,17 @@ class Notification_model extends CI_Model
 
     public function isValid($id)
     {
-        $query = $this->db->get_where($this->tableName, array('id' => $id));
+        $query = $this->db->get_where(
+            $this->tableName,
+            ['id' => $id]
+        );
         return $query->num_rows() === 1 ? true : false;
     }
 
     public function hasTriggers($id)
     {
-        return $this->trigger->getByNotificationId($id)->num_rows() > 0 ? true : false;
+        $triggersCount = $this->trigger->getByNotificationId($id)->num_rows();
+        return $triggersCount > 0 ? true : false;
     }
 
     public function get($id = null)

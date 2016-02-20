@@ -22,7 +22,10 @@ class User_model extends CI_Model
 
     public function getUserByUsername($username)
     {
-        $user = $this->db->get_where($this->tableName, array('username' => $username));
+        $user = $this->db->get_where(
+            $this->tableName,
+            ['username' => $username]
+        );
         return $user->row_array();
     }
     
@@ -33,7 +36,10 @@ class User_model extends CI_Model
             return false;
         }
         $this->db->where('id', $user['id']);
-        $this->db->update($this->tableName, array('password' => $password));
+        $this->db->update(
+            $this->tableName,
+            ['password' => $password]
+        );
         return true;
     }
 }

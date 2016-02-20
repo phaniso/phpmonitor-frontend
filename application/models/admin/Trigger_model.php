@@ -13,8 +13,8 @@ class Trigger_model extends CI_Model
 {
 
     private $tableName = 'notification_triggers';
-    private $triggerTypes = array('service', 'table struct');
-    private $triggerOperators = array('>', '<', '=');
+    private $triggerTypes = ['service', 'table struct'];
+    private $triggerOperators = ['>', '<', '='];
 
     public function __construct()
     {
@@ -33,7 +33,7 @@ class Trigger_model extends CI_Model
     
     public function isValid($id)
     {
-        $query = $this->db->get_where($this->tableName, array('id' => $id));
+        $query = $this->db->get_where($this->tableName, ['id' => $id]);
         return $query->num_rows() === 1 ? true : false;
     }
 
@@ -64,7 +64,12 @@ class Trigger_model extends CI_Model
 
     public function getByNotificationId($id)
     {
-        return $this->db->get_where($this->tableName, array('notification_id' => $id));
+        return $this->db->get_where(
+            $this->tableName,
+            [
+                'notification_id' => $id
+            ]
+        );
     }
 }
 
