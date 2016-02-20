@@ -19,6 +19,7 @@ class ServerHistory_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Server_model');
     }
 
     /**
@@ -31,9 +32,8 @@ class ServerHistory_model extends CI_Model
         $query = $this->db->query('SELECT time from servers_history ORDER BY time DESC LIMIT 1');
         if ($query->num_rows() > 0) {
             return $query->row()->time;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     /**
@@ -47,13 +47,16 @@ class ServerHistory_model extends CI_Model
         if ($time === null) {
             $time = time() - 24 * 3600;
         }
-        if ($status) {
-            $query = 'SELECT * from servers_history WHERE server_id=? AND status="online" AND time > ? ORDER BY time DESC';
-        } else {
+
+        if (! $status) {
             $query = 'SELECT * from servers_history WHERE server_id=? ORDER BY time DESC LIMIT 1';
-            return $this->db->query($query, array($id))->row_array();
+            return $this->db->query($query, [$id])->row_array();
         }
-        return $this->db->query($query, array($id, $time))->result_array();
+        $query  = 'SELECT * from servers_history';
+        $query .= ' WHERE server_id=?';
+        $query .= ' AND status="online" AND time > ?';
+        $query .= ' ORDER BY time DESC';
+        return $this->db->query($query,[$id,$time])->result_array();
     }
 
     /**
@@ -63,9 +66,11 @@ class ServerHistory_model extends CI_Model
      */
     public function getServersHistory()
     {
-        $newst = $this->getLastUpdate();
-        $query = 'SELECT * from servers_history WHERE time >= ?';
-        return $this->db->query($query, array($newst))->result_array();
+        $serverCount = $this->Server_model->count();
+        $this->db->order_by('id', 'desc');
+        $this->db->limit($serverCount);
+        $query= $this->db->get($this->tableName);
+        return $query->result_array();
     }
 
     /**
@@ -75,7 +80,10 @@ class ServerHistory_model extends CI_Model
      */
     public function getServerLastTimeOnline($id)
     {
-        $query = $this->db->query("SELECT time FROM servers_history WHERE status='online' AND server_id=? ORDER BY time DESC", array($id));
+        $query = $this->db->query(
+            "SELECT time FROM servers_history WHERE status='online' AND server_id=? ORDER BY time DESC",
+            array($id)
+        );
         if ($query->num_rows() > 0) {
             return $query->row()->time;
         } else {

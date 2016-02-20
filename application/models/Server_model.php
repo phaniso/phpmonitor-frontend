@@ -43,14 +43,22 @@ class Server_model extends CI_Model
         $this->db->delete($this->tableName);
     }
 
+    public function count()
+    {
+        $query = $this->db->count_all_results($this->tableName);
+        return $query;
+    }
+
     public function isValid($id)
     {
-        $query = $this->db->query('SELECT id from servers WHERE id=?', array($id));
+        $query = $this->db->query(
+            'SELECT id from servers WHERE id=?',
+            array($id)
+        );
         if ($query->num_rows() > 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }
 
