@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="">
-		<title>Multi Server Monitor
+		<title>PHPMonitor
         <?php if (isset($title)) {
             echo '- '.$title; 
         } ?>
@@ -37,7 +37,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo base_url()?>">Multi Server Monitor</a>
+                    <a class="navbar-brand" href="<?php echo base_url()?>">PHPMonitor</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
