@@ -68,7 +68,7 @@ class Installation_model extends CI_Model
         `notification_id` int(11) NOT NULL,
         `value` varchar(11) NOT NULL,
         `operator` varchar(32) NOT NULL,
-        `service_name` varchar(64) NOT NULL,
+        `serviceName` varchar(64) NOT NULL,
         `type` varchar(64) NOT NULL,
         PRIMARY KEY (`id`),
         KEY `notification_id` (`notification_id`),
@@ -76,7 +76,7 @@ class Installation_model extends CI_Model
       ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
       ");
         $pdo->exec("   
-        INSERT INTO `notification_triggers` (`id`, `name`, `notification_id`, `value`, `operator`, `service_name`, `type`) VALUES
+        INSERT INTO `notification_triggers` (`id`, `name`, `notification_id`, `value`, `operator`, `serviceName`, `type`) VALUES
         (1, 'Memory overload', 1, '90', '>', 'memory', 'service'),
         (2, 'Server Status', 2, 'offline', '=', 'status', 'table struct');
         ");
