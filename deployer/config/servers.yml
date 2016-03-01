@@ -1,0 +1,15 @@
+server_1:
+    host:          
+    user:          
+    port:          22
+    identity_file:
+        public_key: "~/id_rsa.pub"
+        private_key: "~/id_rsa"
+        password: "
+    stage:         production
+    deploy_path:   "/var/www/monitor"
+    branch:        master
+    app:
+        domain: phpmonitor.dev
+        mode: development
+        debug: true
