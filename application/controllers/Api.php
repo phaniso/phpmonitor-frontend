@@ -51,7 +51,11 @@ class Api extends CI_Controller
         }
 
         foreach ($serverHistory as $serverData) {
-            $returnPercentage ? $data[] = calculatePercentages(array($serverData), ['service' => $service], true) : $data[]['service'] = $serverData[$dbColumn];
+            $returnPercentage ? $data[] = calculatePercentages(
+                [$serverData],
+                ['service' => $service],
+                true
+            ) : $data[]['service'] = $serverData[$dbColumn];
             $data[count($data) - 1]['Date'] = date("Y/m/d H:i:s", $serverData['time']);
         }
         $this->printCSV($req, $service['name'], $data);
@@ -71,7 +75,7 @@ class Api extends CI_Controller
     private function shouldReturnPercentage($service, $req)
     {
         if (count(explode(':', $service['dbcolumns'])) < 2
-            || !$service['percentages']
+            || ! $service['percentages']
         ) {
             return false;
         }
@@ -84,7 +88,7 @@ class Api extends CI_Controller
     */
     private function jsonError($error)
     {
-        print json_encode(array('error' => $error));
+        print json_encode(['error' => $error]);
     }
 
     /**
