@@ -9,7 +9,9 @@
     #no-more-tables tr { 
         display: block; 
     }
- 
+    #no-more-tables tbody tr.error td {
+        background-color: #A94442;
+    }
     /* Hide table headers (but not display: none;, for accessibility) */
     #no-more-tables thead tr { 
         position: absolute;
@@ -17,12 +19,12 @@
         left: -9999px;
     }
  
-    #no-more-tables tr { border: 1px solid #ccc; }
+    /* #no-more-tables tr { border: 1px solid #ccc; } */
  
     #no-more-tables td { 
         /* Behave  like a "row" */
         border: none;
-        border-bottom: 1px solid #eee; 
+        /* border-bottom: 1px solid #eee; */
         position: relative;
         padding-left: 50%; 
         white-space: normal;
