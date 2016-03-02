@@ -79,7 +79,7 @@ class Main extends CI_Controller
     {
         $list = '';
         $separator['panel'] = ['opener' => '', 'closer' => ''];
-        $separator['table'] = ['opener' => '<td>', 'closer' => '</td>'];
+        $separator['table'] = ['closer' => '</td>'];
         foreach($servers as $server)
         {
             $listBody = $this->buildServerListBody($viewName, $separator[$viewName], $server, $services, $percents);
@@ -107,22 +107,23 @@ class Main extends CI_Controller
     private function buildServerListBody($type, $separator, $server, $services, $percents)
     {
         $listContent = '';
-        foreach($services as $serviceName => $service) {
+        foreach($services as $serviceId => $service) {
             list($column1, $column2) = array_pad(explode(":", $service['dbcolumns']), 2, 1);
             if (is_numeric($column2)) {
                 $server[$column2] = $column2;
             }
+            if($type == 'table') $separator['opener'] = "<td data-title=\"{$service['name']}\">";
             $body = $separator['opener'];
             $body .= $service['show_numbers'] ?
                 ($service['resize'] ?
                     (convertUnit($server[$column1]) . "/" . convertUnit($server[$column2]))
                     : $server[$column1]) 
-            : $percents[$server['server_id']][$serviceName] . '%';
+            : $percents[$server['server_id']][$serviceId] . '%';
             if($service['percentages']) {
                $body .= $this->load->view(
                     'serverList/'.$type.'/percentage',
                     [
-                        'percents' => $percents[$server['server_id']][$serviceName]
+                        'percents' => $percents[$server['server_id']][$serviceId]
                     ],
                     true
                 );
